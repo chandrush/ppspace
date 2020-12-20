@@ -8,6 +8,7 @@ public class Arrow {
 	
 	private Edge edge;
 	
+	//this attribute is never changes after construction
 	private Vertex origin;
 	
 	private Arrow twinArrow;
@@ -48,9 +49,6 @@ public class Arrow {
 
 	public void setFacet(Facet facet)
 	{
-		if (this.facet != null)
-			throw new IllegalStateException("The Arrow already has a facet assigned.");
-		
 		this.facet = facet;
 	}
 	
@@ -60,9 +58,6 @@ public class Arrow {
 	}
 	
 	public void setTwinArrow(Arrow twinArrow) {
-		
-		if (this.twinArrow != null)
-			throw new IllegalStateException("The Twin Arrow already setuped.");
 		
 		this.twinArrow = twinArrow;
 	}
@@ -74,9 +69,6 @@ public class Arrow {
 	
 	public void setNext(Arrow arrow)
 	{
-		if (this.nextArrow != null)
-			throw new IllegalStateException("The Arrow already has a next arrow assigned.");
-		
 		this.nextArrow = arrow;
 	}
 
@@ -87,9 +79,6 @@ public class Arrow {
 
 	public void setRot(Arrow arrow)
 	{
-		if (this.rot != null)
-			throw new IllegalStateException("The Arrow already has a rot arrow assigned.");
-		
 		this.rot = arrow;
 	}
 

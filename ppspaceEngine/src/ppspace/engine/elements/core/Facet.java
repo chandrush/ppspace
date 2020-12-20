@@ -38,9 +38,6 @@ public class Facet  {
 	
 	public void setTwinFacet(Facet facet)
 	{
-		if (this.twinFacet != null)
-			throw new IllegalStateException("The Facet already has a twin facet assigned.");
-		
 		this.twinFacet = facet;
 	}
 	
@@ -51,9 +48,6 @@ public class Facet  {
 	
 	public void setVoxel(Voxel voxel)
 	{
-		if (this.voxel != null)
-			throw new IllegalStateException("The Facet already has a voxel assigned.");
-		
 		this.voxel = voxel;
 	}
 
@@ -64,9 +58,6 @@ public class Facet  {
 	
 	public void setOuterPolygonArrow(Arrow arrow)
 	{
-		if (this.outerPolygonArrow != null)
-			throw new IllegalStateException("The Facet already has an outer polygon arrow assigned.");
-		
 		this.outerPolygonArrow = arrow;
 	}
 
@@ -77,11 +68,8 @@ public class Facet  {
 
 	public void setInner(Arrow[] innerPolygonArrows)
 	{
-		if (this.innerPolygonsArrows != null)
-			throw new IllegalStateException("The Facet already has inner polygons assigned.");
-		
 		this.innerPolygonsArrows = innerPolygonArrows;
-	}
+	}	
 	
 	public Vector3d getNormal() {
 		

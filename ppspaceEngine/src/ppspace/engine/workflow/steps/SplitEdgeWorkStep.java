@@ -111,7 +111,7 @@ public class SplitEdgeWorkStep extends SplitWorkStepBase implements ISplitWorkSt
 		// already have from the validation stage:
 		// - AddNodeWorkStepCommand addNodeCommand - a command that adds a node
 		// - IEdge oldEdge - an edge to be split
-				
+		
 		//add new Node to the User model and corresponding vertex to the Core model
 		Node splitNode = new Node(addNodeCommand.getName(), false, addNodeCommand.getLocation());
 		Vertex splitNodeVertex = new Vertex("v_" + splitNode.getName(), splitNode);

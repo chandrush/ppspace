@@ -34,7 +34,7 @@ public class PartitionModel {
 		PrecisionConfiguration precisionConfiguration = new PrecisionConfiguration(5);
 		
 		// create user model elements collection
-		UserModelElements userModelElements = new UserModelElements(precisionConfiguration);
+		UserModelElements userModelElements = new UserModelElements(precisionConfiguration, 0);
 		
 		// create workflow & workStep factory
 		Workflow workflow = new Workflow();
@@ -64,19 +64,13 @@ public class PartitionModel {
 	}
 	
 	public WorkStepInvokeResult applyWorkStep(IWorkStep workStep) {
-		
-		// prepare child temporary collections of elements of user and core models
-		IUserModelElements workStepUserElements = this.userModelElements.createChildCollection();
-		
+			
 		// invoke the WorkStep
 		WorkStepInvokeResult workStepInvokeResult = workStep.invoke(this.userModelElements, this.precisionConfiguration);
 		
 		// apply results in the case of successful WorkStep execution
 		if (workStepInvokeResult.isSuccess())
 		{
-			// save the results of execution
-			workStepUserElements.merge();
-			
 			// save the executed WorkStep in the Workflow history
 			this.workflow.AddStep(workStep);
 		}

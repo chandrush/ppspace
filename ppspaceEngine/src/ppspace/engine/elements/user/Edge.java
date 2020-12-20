@@ -55,7 +55,7 @@ public class Edge implements INamedElement  {
 	public void setArrow(Arrow arrow) {
 		
 		if (this.arrow != null)
-			throw new IllegalStateException("The Edge already has an Arrow assigned.");
+			throw new IllegalStateException("The edge already has an Arrow setuped.");
 		
 		this.arrow = arrow;
 	}

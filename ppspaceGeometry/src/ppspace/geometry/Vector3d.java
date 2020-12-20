@@ -66,6 +66,11 @@ public class Vector3d  {
 		return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
 	}
 	
+	public final Vector3d mult(double k)
+	{
+		return new Vector3d(this.x * k, this.y * k, this.z * k);
+	}
+	
 	public String toString() {
 		
 		return String.format("%d, %d, %d", this.x, this.y, this.z);

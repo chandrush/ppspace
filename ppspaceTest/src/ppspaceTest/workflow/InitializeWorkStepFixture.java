@@ -28,7 +28,7 @@ class InitializeWorkStepFixture {
 		//arrange
 
 		PrecisionConfiguration precisionConfiguration = new PrecisionConfiguration(5);
-		UserModelElements userModelElements = new UserModelElements(precisionConfiguration);
+		UserModelElements userModelElements = new UserModelElements(precisionConfiguration, 0);
 				
 		// invoke the WorkStep
 		IWorkStep initializeWorkStep = new InitializeWorkStep();
@@ -45,25 +45,5 @@ class InitializeWorkStepFixture {
 		
 		Collection<Face> facesCollection = userModelElements.allFaces();
 		assertEquals(20, facesCollection.size());
-			
-			
-//		try
-//		{
-//			PrintWriter writer = new PrintWriter("e:\\temp\\a.txt", "UTF-8");
-//			for (IArrow a : arrowsCollection.all())
-//			{
-//				writer.println(a.getEdge().getName());
-//			}writer.flush();
-//		}
-//		catch (Exception exception)
-//		{
-//			fail(exception);
-//		}
-//		
-//		INamedElementsCollection<IArrow> z = (INamedElementsCollection<IArrow>)coreModelElements.all(CoreModelElements.ElementKind.Arrow);
-//		
-//		int size = z.all().size();
-//		assertEquals(100, size);
-		
 	}
 }

@@ -45,7 +45,7 @@ public class Node implements INamedElement  {
 	public void setVertex(Vertex vertex) {
 		
 		if (this.vertex != null)
-			throw new IllegalStateException("The Node already has a Vertex assigned.");
+			throw new IllegalStateException("The Node already has a Vertex setuped.");
 		
 		this.vertex = vertex;
 	}

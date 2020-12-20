@@ -36,7 +36,7 @@ public class Cell implements INamedElement  {
 	public void setVoxel(Voxel voxel) {
 		
 		if (this.voxel != null)
-			throw new IllegalStateException("The Cell already has a Voxel assigned.");
+			throw new IllegalStateException("The Cell already has a Voxel setuped.");
 		
 		this.voxel = voxel;
 	}

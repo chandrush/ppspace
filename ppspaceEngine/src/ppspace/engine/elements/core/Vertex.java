@@ -34,9 +34,6 @@ public class Vertex {
 
 	public void setArrow(Arrow arrow) {
 		
-		if (this.arrow != null)
-			throw new IllegalStateException("The Vertex already has an Arrow assigned.");
-		
 		this.arrow = arrow;
 	}
 

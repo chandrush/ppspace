@@ -30,9 +30,6 @@ public class Voxel  {
 
 	public void setOuter(Facet facet)
 	{
-		if (this.outer != null)
-			throw new IllegalStateException("The Voxel already has an outer facet assigned.");
-		
 		this.outer = facet;
 	}
 

@@ -25,7 +25,7 @@ class MergeEdgesWorkStepFixture {
 
 		//arrange
 		PrecisionConfiguration precisionConfiguration = new PrecisionConfiguration(5);
-		UserModelElements userModelElements = new UserModelElements(precisionConfiguration);
+		UserModelElements userModelElements = new UserModelElements(precisionConfiguration, 0);
 		(new InitializeWorkStep()).invoke(userModelElements, precisionConfiguration);
 		
 		ISplitWorkStep splitEdgeWorkStep = new SplitEdgeWorkStep("e1", "e1_a", "e1_b");

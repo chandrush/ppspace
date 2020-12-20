@@ -48,7 +48,7 @@ public class Face implements INamedElement {
 	public void setFacet(Facet facet) {
 		
 		if (this.facet != null)
-			throw new IllegalStateException("The Face already has a Facet assigned.");
+			throw new IllegalStateException("The Face already has a Facet setuped.");
 		
 		this.facet = facet;
 	}

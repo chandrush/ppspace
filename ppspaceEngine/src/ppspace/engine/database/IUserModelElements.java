@@ -11,7 +11,9 @@ import ppspace.geometry.Vector3d;
  * @author andrej.chanturidze
  *
  */
-public interface IUserModelElements extends IModelElements {
+public interface IUserModelElements {
+	
+	String autoName();
 	
 	/**
 	 * Returns a node by its name.
