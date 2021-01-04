@@ -4,17 +4,14 @@ import ppspace.engine.elements.user.Cell;
 
 public class Voxel  {
 
-	private String name;
-	
 	private Cell cell;
 	
 	private Facet outer;
 	
 	private Facet[] inner;
 	
-	public Voxel(String name, Cell cell) {
+	public Voxel(Cell cell) {
 		
-		this.name = name;
 		this.cell = cell;
 	}
 	
@@ -36,11 +33,6 @@ public class Voxel  {
 	public Facet[] getInner() {
 		
 		return this.inner;
-	}
-
-	public String getName() {
-		
-		return this.name;
 	}
 
 }

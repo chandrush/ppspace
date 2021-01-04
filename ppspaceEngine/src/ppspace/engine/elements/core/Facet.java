@@ -5,8 +5,6 @@ import ppspace.geometry.Vector3d;
 
 public class Facet  {
 
-	private String name;
-	
 	private Face face;
 	
 	private Vector3d normalVector;
@@ -19,9 +17,8 @@ public class Facet  {
 	
 	private Arrow[] innerPolygonsArrows;
 	
-	public Facet(String name, Face face, Vector3d normalVector) {
+	public Facet(Face face, Vector3d normalVector) {
 		
-		this.name = name;
 		this.face = face;
 		this.normalVector = normalVector;
 	}
@@ -74,11 +71,6 @@ public class Facet  {
 	public Vector3d getNormal() {
 		
 		return this.normalVector;
-	}
-
-	public String getName() {
-		
-		return this.name;
 	}
 
 }

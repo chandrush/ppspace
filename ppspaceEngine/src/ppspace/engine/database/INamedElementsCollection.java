@@ -2,6 +2,7 @@ package ppspace.engine.database;
 
 import java.util.Collection;
 
+
 public interface INamedElementsCollection<T extends INamedElement> {
 	
 	public T get(String name);

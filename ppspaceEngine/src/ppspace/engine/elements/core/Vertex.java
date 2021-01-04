@@ -4,27 +4,25 @@ import ppspace.engine.elements.user.Node;
 
 public class Vertex {
 
-	private String name;
-	
 	private Node node;
 	
 	private Arrow arrow;
 	
-	public Vertex(String name, Node node) {
+	public Vertex() {
 		
-		this.name = name;
-		this.node = node;
-	}
-	
-	public Vertex(String name, Node node, Arrow arrow) {
-		
-		this(name, node);
-		this.arrow = arrow;
 	}
 	
 	public Node getNode() {
 		
 		return this.node;
+	}
+
+	public void setNode(Node node) {
+		
+		if (this.node == null)
+			throw new IllegalStateException("The vertex already has a node setuped.");
+		
+		this.node = node;
 	}
 
 	public Arrow getArrow() {
@@ -35,11 +33,6 @@ public class Vertex {
 	public void setArrow(Arrow arrow) {
 		
 		this.arrow = arrow;
-	}
-
-	public String getName() {
-
-		return this.name;
 	}
 
 }

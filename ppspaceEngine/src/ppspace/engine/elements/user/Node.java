@@ -4,6 +4,7 @@ import ppspace.engine.database.INamedElement;
 import ppspace.engine.elements.core.Vertex;
 import ppspace.geometry.Vector3d;
 
+
 public class Node implements INamedElement  {
 
 	private String name;
@@ -24,6 +25,7 @@ public class Node implements INamedElement  {
 	public Node(String name, boolean isEmpty, Vector3d vector, Vertex vertex) {
 		
 		this(name, isEmpty, vector);
+
 		this.vertex = vertex;
 	}
 	

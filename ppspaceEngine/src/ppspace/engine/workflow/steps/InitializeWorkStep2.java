@@ -23,12 +23,14 @@ import ppspace.geometry.precision.PrecisionConfiguration;
  * @author andrej.chanturidze
  *
  */
-public class InitializeWorkStep implements IWorkStep {
+public class InitializeWorkStep2 implements IWorkStep {
 
+	private int uniqueNameCounter = 0;
+	
 	/**
 	 * Constructor.
 	 */
-	public InitializeWorkStep() {
+	public InitializeWorkStep2() {
 		
 	}
 
@@ -38,13 +40,22 @@ public class InitializeWorkStep implements IWorkStep {
 		// *** create user model elements ***
 
 		// create nodes
-		Node n0  = new Node("n0", false, new Vector3d ( 0,  0,  0));
-		Node ne1 = new Node("ne1", true, new Vector3d( 1,  0,  0));
-		Node ne2 = new Node("ne2", true, new Vector3d( 0,  1,  0));
-		Node ne3 = new Node("ne3", true, new Vector3d( 0,  0,  1));
-		Node ne4 = new Node("ne4", true, new Vector3d(-1,  0,  0));
-		Node ne5 = new Node("ne5", true, new Vector3d( 0, -1,  0));
-		Node ne6 = new Node("ne6", true, new Vector3d( 0,  0, -1));
+		Node n0  = new Node("n0", false, new Vector3d ( 0,  0,  0), new Vertex());
+		Node ne1 = new Node("ne1", true, new Vector3d( 1,  0,  0), new Vertex());
+		Node ne2 = new Node("ne2", true, new Vector3d( 0,  1,  0), new Vertex());
+		Node ne3 = new Node("ne3", true, new Vector3d( 0,  0,  1), new Vertex());
+		Node ne4 = new Node("ne4", true, new Vector3d(-1,  0,  0), new Vertex());
+		Node ne5 = new Node("ne5", true, new Vector3d( 0, -1,  0), new Vertex());
+		Node ne6 = new Node("ne6", true, new Vector3d( 0,  0, -1), new Vertex());
+		
+		// setup references for vertices to nodes
+		n0.getVertex().setNode(n0);
+		ne1.getVertex().setNode(ne1);
+		ne2.getVertex().setNode(ne2);
+		ne3.getVertex().setNode(ne3);
+		ne4.getVertex().setNode(ne4);
+		ne5.getVertex().setNode(ne5);
+		ne6.getVertex().setNode(ne6);
 
 		// create edges
 		Edge e1 = new Edge("e1", n0, ne1);
@@ -186,8 +197,8 @@ public class InitializeWorkStep implements IWorkStep {
 		Vector3d p2NormalVector = this.normalVectorFunc(arrows[0].getTwinArrow());
 		
 		//create facets
-		Facet facet1 = new Facet(face, p1NormalVector);
-		Facet facet2 = new Facet(face, p2NormalVector);
+		Facet facet1 = new Facet("ft1_" + face.getName() + this.getNameUniqueSuffix(), face, p1NormalVector);
+		Facet facet2 = new Facet("ft2_" + face.getName() + this.getNameUniqueSuffix(), face, p2NormalVector);
 		
 		//setup twin facet
 		facet1.setTwinFacet(facet2);
@@ -199,13 +210,13 @@ public class InitializeWorkStep implements IWorkStep {
 		{
 			a.setFacet(facet1);
 			a = a.getNext();			
-		} while (a != arrows[0]);
+		} while (a.getName() != arrows[0].getName());
 		a = arrows[0].getTwinArrow();
 		do 
 		{
 			a.setFacet(facet2);
 			a = a.getNext();			
-		} while (a != arrows[0].getTwinArrow());
+		} while (a.getName() != arrows[0].getTwinArrow().getName());
 		
 		
 		//setup references to outer polygons
@@ -231,7 +242,7 @@ public class InitializeWorkStep implements IWorkStep {
 			Arrow newArrowTwin = arrows[i].getTwinArrow();
 			
 			//arrange arrows in pairs by their orientation
-			if (edgeArrow.getOrigin() != newArrow.getOrigin())
+			if (edgeArrow.getOrigin().getName() != newArrow.getOrigin().getName())
 			{
 				Arrow temp = newArrow;
 				newArrow = newArrowTwin;
@@ -239,7 +250,7 @@ public class InitializeWorkStep implements IWorkStep {
 			}
 			
 			//if not first arrow in dihedral cycle
-			if (edgeArrow != newArrow)
+			if (edgeArrow.getName() != newArrow.getName())
 			{
 				updateDihedralReferences(edgeArrow, newArrow, precisionConfiguration);
 				updateDihedralReferences(edgeArrowTwin, newArrowTwin, precisionConfiguration);
@@ -254,17 +265,7 @@ public class InitializeWorkStep implements IWorkStep {
 		//ensure edge nodes have corresponding vertexes in the coreModel
 		Node node1 = edge.getNode1();
 		Node node2 = edge.getNode2();
-		
-		if (node1.getVertex() == null)
-		{
-			node1.setVertex(new Vertex("v_" + node1.getName() + this.getNameUniqueSuffix(), node1));
-		}
-		
-		if (node2.getVertex() == null)
-		{
-			node2.setVertex(new Vertex("v_" + node2.getName() + this.getNameUniqueSuffix(), node2));
-		}
-		
+
 		//create arrows
 		Arrow a1 = new Arrow("a1_" + edge.getName() + this.getNameUniqueSuffix(), edge, edge.getNode1().getVertex());
 		Arrow a2 = new Arrow("a2_" + edge.getName() + this.getNameUniqueSuffix(), edge, edge.getNode2().getVertex());
@@ -387,4 +388,8 @@ public class InitializeWorkStep implements IWorkStep {
 		return det > 0; //will not be 0 for initial step
 	}
 
+	private String getNameUniqueSuffix() {
+		
+		return String.valueOf(uniqueNameCounter++);
+	}
 }

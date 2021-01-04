@@ -17,7 +17,7 @@ public final class NodeSet implements INamedElementsCollection<Node> {
 	
 	/**
 	 * Collection of the elements
-	 */
+	 */ 
 	private HashMap<Integer, CollidedElementsContainer> geometryToElement;
 	
 	private HashMap<String, Node> nameToElement;

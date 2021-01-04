@@ -4,8 +4,6 @@ import ppspace.engine.elements.user.Edge;
 
 public class Arrow {
 	
-	private String name;
-	
 	private Edge edge;
 	
 	//this attribute is never changes after construction
@@ -19,9 +17,8 @@ public class Arrow {
 	
 	private Arrow rot;
 	
-	public Arrow(String name, Edge edge, Vertex origin, Arrow twinArrow) {
+	public Arrow(Edge edge, Vertex origin, Arrow twinArrow) {
 		
-		this.name = name;
 		this.edge = edge;
 		this.origin = origin;
 		this.twinArrow = twinArrow;
@@ -29,7 +26,7 @@ public class Arrow {
 	
 	public Arrow(String name, Edge edge, Vertex origin) {
 		
-		this(name, edge, origin, null);
+		this(edge, origin, null);
 	}
 
 	public Edge getEdge() {
@@ -82,9 +79,5 @@ public class Arrow {
 		this.rot = arrow;
 	}
 
-	public String getName() {
-		
-		return this.name;
-	}	
 }
 
