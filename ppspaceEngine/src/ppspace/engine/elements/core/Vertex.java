@@ -2,6 +2,11 @@ package ppspace.engine.elements.core;
 
 import ppspace.engine.elements.user.Node;
 
+/**
+ * A vertex element of the core model.
+ * @author andrej.chanturidze
+ *
+ */
 public class Vertex {
 
 	private Node node;
@@ -10,6 +15,11 @@ public class Vertex {
 	
 	public Vertex() {
 		
+	}
+	
+	public Vertex(Node node) {
+		
+		this.node = node;
 	}
 	
 	public Node getNode() {

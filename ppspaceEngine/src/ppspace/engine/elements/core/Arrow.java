@@ -17,16 +17,10 @@ public class Arrow {
 	
 	private Arrow rot;
 	
-	public Arrow(Edge edge, Vertex origin, Arrow twinArrow) {
+	public Arrow(Edge edge, Vertex origin) {
 		
 		this.edge = edge;
 		this.origin = origin;
-		this.twinArrow = twinArrow;
-	}
-	
-	public Arrow(String name, Edge edge, Vertex origin) {
-		
-		this(edge, origin, null);
 	}
 
 	public Edge getEdge() {

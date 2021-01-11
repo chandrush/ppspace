@@ -1,5 +1,6 @@
 package ppspace.geometry.algorithms.nodeToEdgeLocation;
 
+import ppspace.geometry.Vector3d;
 import ppspace.geometry.precision.PrecisionConfiguration;
 
 public class NodeToEdgeLocationAlgorithmFactory {
@@ -11,7 +12,7 @@ public class NodeToEdgeLocationAlgorithmFactory {
 		this.precisionConfiguration = precisionConfiguration;
 	}
 	
-	public NodeToEdgeLocationAlgorithm create() {
+	public NodeToEdgeLocationAlgorithm create(Vector3d node, Vector3d edgeStart, Vector3d edgeVector) {
 		
 		return new NodeToEdgeLocationAlgorithm(this.precisionConfiguration);
 	}

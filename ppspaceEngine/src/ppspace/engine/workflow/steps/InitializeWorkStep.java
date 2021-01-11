@@ -135,34 +135,28 @@ public class InitializeWorkStep implements IWorkStep {
 	
 	private void createVoxel(String voxelName, Cell cell, PrecisionConfiguration precisionConfiguration) {
 		
+		Voxel vx = new Voxel(cell);
+		cell.setVoxel(vx);
+		
 		// create the facets for the faces
 		Face[] cellFaces = cell.getFaces();
 		Facet[] facets = new Facet[cellFaces.length];
 		for (int i = 0; i < cellFaces.length; i++)
 		{ 
 			facets[i] = this.createFaceFacets(cellFaces[i], precisionConfiguration);
-		}
-		
-		// add the voxel to the core model elements
-		Voxel vx = new Voxel(cell);
-		
-		//for the voxel setup a reference to the outer facet (test a facet if it's outer, if not - take the twin facet for reference)
-		if (this.isFacetOuter(facets[0]))
-			vx.setOuter(facets[0]);
-		else
-			vx.setOuter(facets[0].getTwinFacet());
-		
-		//for the facets setup a reference to the voxel
-		for (int i = 0; i < facets.length; i++)
-		{
+			
+			//set the reference to a voxel
 			facets[i].setVoxel(vx);
 			facets[i].getTwinFacet().setVoxel(vx);
 		}
+		
+		//setup a reference to the outer facet
+		vx.setOuter(facets[0]);
 	}
 	
 	private Facet createFaceFacets(Face face, PrecisionConfiguration precisionConfiguration) {
 		
-		//if the face already has a facet assigned - that means that a work was done earlier
+		//if the face already has a facet assigned - that means that the work was done earlier
 		if (face.getFacet() != null)
 		{
 			return face.getFacet();
@@ -177,18 +171,18 @@ public class InitializeWorkStep implements IWorkStep {
 		}
 		
 		//arrange arrows in polygons (handle the case with chaotic set of edges)
-		//for this workstep we know that there is only one bidirectional polygon	
-		this.setupPolygonReferencesFunc(arrows[0], arrows, precisionConfiguration);
-		this.setupPolygonReferencesFunc(arrows[0].getTwinArrow(), arrows, precisionConfiguration);
+		//for this workstep we know that there is only one bidirectional polygon
+		this.setupPolygonFromArrows(arrows[0], arrows, precisionConfiguration);
+		this.setupPolygonFromArrows(arrows[0].getTwinArrow(), arrows, precisionConfiguration);
 		
-		//calculate normal vectors for twin facets (we know, that for initial step two consecutive edges don't lay on the same line) 
+		//calculate normal vectors for twin facets (we know, that for initial step two consecutive edges don't lay on the same line)
 		Vector3d p1NormalVector = this.normalVectorFunc(arrows[0]);
 		Vector3d p2NormalVector = this.normalVectorFunc(arrows[0].getTwinArrow());
 		
 		//create facets
 		Facet facet1 = new Facet(face, p1NormalVector);
 		Facet facet2 = new Facet(face, p2NormalVector);
-		
+			
 		//setup twin facet
 		facet1.setTwinFacet(facet2);
 		facet2.setTwinFacet(facet1);
@@ -198,13 +192,13 @@ public class InitializeWorkStep implements IWorkStep {
 		do 
 		{
 			a.setFacet(facet1);
-			a = a.getNext();			
+			a = a.getNext();
 		} while (a != arrows[0]);
 		a = arrows[0].getTwinArrow();
-		do 
+		do
 		{
 			a.setFacet(facet2);
-			a = a.getNext();			
+			a = a.getNext();
 		} while (a != arrows[0].getTwinArrow());
 		
 		
@@ -257,17 +251,17 @@ public class InitializeWorkStep implements IWorkStep {
 		
 		if (node1.getVertex() == null)
 		{
-			node1.setVertex(new Vertex("v_" + node1.getName() + this.getNameUniqueSuffix(), node1));
+			node1.setVertex(new Vertex(node1));
 		}
 		
 		if (node2.getVertex() == null)
 		{
-			node2.setVertex(new Vertex("v_" + node2.getName() + this.getNameUniqueSuffix(), node2));
+			node2.setVertex(new Vertex(node2));
 		}
 		
 		//create arrows
-		Arrow a1 = new Arrow("a1_" + edge.getName() + this.getNameUniqueSuffix(), edge, edge.getNode1().getVertex());
-		Arrow a2 = new Arrow("a2_" + edge.getName() + this.getNameUniqueSuffix(), edge, edge.getNode2().getVertex());
+		Arrow a1 = new Arrow(edge, edge.getNode1().getVertex());
+		Arrow a2 = new Arrow(edge, edge.getNode2().getVertex());
 		
 		//setup twin status
 		a1.setTwinArrow(a2);
@@ -280,25 +274,27 @@ public class InitializeWorkStep implements IWorkStep {
 		return a1;
 	}
 	
-	private void setupPolygonReferencesFunc(Arrow p, Arrow[] arrows, PrecisionConfiguration precisionConfiguration) {
+	private void setupPolygonFromArrows(Arrow p, Arrow[] arrows, PrecisionConfiguration precisionConfiguration) {
+		
+		//the end of the current arrow should be the same as the origin of the next
 		
 		while (p.getNext() == null)
 		{
-			Vector3d pEndPoint = p.getTwinArrow().getOrigin().getNode().getVector();
+			Vector3d pEndPoint = ArrowUtils.getEndPointVector(p);
 			
-			//iterate over arrows, find next then continue
+			//iterate over arrows, find a next, then continue
 			for (int i = 0; i < arrows.length; i++)
 			{
-				//tested arrow must not belong to the same edge
-				if (!p.getEdge().getName().equals(arrows[i].getEdge().getName()))
+				//tested arrow must not belong to the same edge (twin arrow will satisfy the condition, but will not be a next arrow in the polygon)
+				if (!p.getEdge().equals(arrows[i].getEdge()))
 				{
-					if (arrows[i].getOrigin().getNode().getVector().equal(pEndPoint, precisionConfiguration))
+					if (ArrowUtils.getStartPointVector(arrows[i]).equal(pEndPoint, precisionConfiguration))
 					{
 						p.setNext(arrows[i]);
 						p = arrows[i];
 						break;
 					}
-					else if (arrows[i].getTwinArrow().getOrigin().getNode().getVector().equal(pEndPoint, precisionConfiguration))
+					else if (ArrowUtils.getEndPointVector(arrows[i]).equal(pEndPoint, precisionConfiguration))
 					{
 						p.setNext(arrows[i].getTwinArrow());
 						p = arrows[i].getTwinArrow();
@@ -307,13 +303,13 @@ public class InitializeWorkStep implements IWorkStep {
 				}
 			}
 		}
-	};
+	}
 	
 	private Vector3d normalVectorFunc(Arrow p) {
 		
-		Vector3d v1 = p.getOrigin().getNode().getVector();
-		Vector3d v2 = p.getNext().getOrigin().getNode().getVector();
-		Vector3d v3 = p.getNext().getNext().getOrigin().getNode().getVector();
+		Vector3d v1 = ArrowUtils.getStartPointVector(p);
+		Vector3d v2 = ArrowUtils.getStartPointVector(p.getNext());
+		Vector3d v3 = ArrowUtils.getStartPointVector(p.getNext().getNext());
 		
 		Vector3d v1v2 = v2
 				.substract(v1);
@@ -333,15 +329,15 @@ public class InitializeWorkStep implements IWorkStep {
 		{
 			dihedralCycleArrows.add(iteratorArrow);
 			iteratorArrow = iteratorArrow.getRot();
-		} while (iteratorArrow != null && iteratorArrow.getName() != arrow.getName());
+		} while (iteratorArrow != null && iteratorArrow != arrow);
 		dihedralCycleArrows.add(newArrow);
 		
 		//extract vectors for the sorting algorithm
 		Vector3d[] dihedralCycleArrowsVectors = dihedralCycleArrows.stream()
     			.map(a -> {
     				
-    				Vector3d v1 = a.getOrigin().getNode().getVector();
-    				Vector3d v2 = a.getTwinArrow().getOrigin().getNode().getVector();
+    				Vector3d v1 = ArrowUtils.getStartPointVector(a);
+    				Vector3d v2 = ArrowUtils.getEndPointVector(a);
     				return v2.substract(v1);
     			})
     			.toArray(Vector3d[]::new);
@@ -364,27 +360,17 @@ public class InitializeWorkStep implements IWorkStep {
 		dihedralCycleArrows.get(dihedralCycleArrows.size() - 1).setRot(dihedralCycleArrows.get(0));
 	}
 
-	private boolean isFacetOuter(Facet facet) {
-		
-		Vector3d v1o = facet.getOuter().getOrigin().getNode().getVector();
-		Vector3d v1t = facet.getOuter().getTwinArrow().getOrigin().getNode().getVector();
-		Vector3d v1 = v1t.substract(v1o);
-		
-		Vector3d v2o = facet.getOuter().getNext().getOrigin().getNode().getVector();
-		Vector3d v2t = facet.getOuter().getNext().getTwinArrow().getOrigin().getNode().getVector();
-		Vector3d v2 = v2t.substract(v2o);
-		
-		Vector3d v3 = facet.getNormal();
-		
-		//calculate determinant of 3 vectors
-		double det = v1.getX() * v2.getY() * v3.getZ() -
-				v1.getX() * v3.getY() * v2.getZ() -
-				v2.getX() * v1.getY() * v3.getZ() +
-				v2.getY() * v3.getY() * v1.getZ() +
-				v3.getX() * v1.getY() * v2.getZ() -
-				v3.getX() * v2.getY() * v1.getZ();
-		
-		return det > 0; //will not be 0 for initial step
-	}
+	final static class ArrowUtils {
 
+			public static Vector3d getEndPointVector(Arrow a) {
+				
+				return a.getTwinArrow().getOrigin().getNode().getVector();
+			}
+			
+			public static Vector3d getStartPointVector(Arrow a) {
+				
+				return a.getOrigin().getNode().getVector();
+			}
+		
+	}
 }
