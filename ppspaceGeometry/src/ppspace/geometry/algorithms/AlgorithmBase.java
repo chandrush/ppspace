@@ -2,7 +2,7 @@ package ppspace.geometry.algorithms;
 
 import java.util.ArrayList;
 
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.deltathresold.PrecisionConfiguration;
 
 /**
  * A base class of geometric algorithms.

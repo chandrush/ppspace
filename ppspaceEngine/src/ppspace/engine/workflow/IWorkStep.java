@@ -1,7 +1,7 @@
 package ppspace.engine.workflow;
 
 import ppspace.engine.database.IUserModelElements;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.IPrecisionConfiguration;
 
 /**
  * A base for Work step.
@@ -13,5 +13,5 @@ public interface IWorkStep {
 	/**
 	 * An invocation logic of the WorkStep.
 	 */
-	public WorkStepInvokeResult invoke(IUserModelElements userModelElements, PrecisionConfiguration precisionConfiguration);
+	public WorkStepInvokeResult invoke(IUserModelElements userModelElements, IPrecisionConfiguration precisionConfiguration);
 }

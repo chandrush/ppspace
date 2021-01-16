@@ -8,7 +8,7 @@ import ppspace.engine.workflow.WorkStepInvokeResult;
 import ppspace.engine.workflow.Workflow;
 import ppspace.engine.workflow.steps.InitializeWorkStep;
 import ppspace.engine.workflow.steps.SplitEdgeWorkStep;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.deltathresold.PrecisionConfiguration;
 
 public class PartitionModel {
 

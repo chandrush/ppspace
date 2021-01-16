@@ -8,7 +8,7 @@ import ppspace.engine.workflow.commands.AddFaceWorkStepCommand;
 import ppspace.engine.workflow.commands.AddNodeWorkStepCommand;
 import ppspace.engine.workflow.commands.IWorkStepCommand;
 import ppspace.geometry.Vector3d;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.IPrecisionConfiguration;
 
 public abstract class SplitWorkStepBase implements ISplitWorkStep {
 
@@ -70,6 +70,6 @@ public abstract class SplitWorkStepBase implements ISplitWorkStep {
 	}
 	
 	@Override
-	public abstract WorkStepInvokeResult invoke(IUserModelElements userModelElements, PrecisionConfiguration precisionConfiguration);
+	public abstract WorkStepInvokeResult invoke(IUserModelElements userModelElements, IPrecisionConfiguration precisionConfiguration);
 
 }

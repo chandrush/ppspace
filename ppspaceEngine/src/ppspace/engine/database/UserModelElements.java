@@ -7,7 +7,8 @@ import ppspace.engine.elements.user.Edge;
 import ppspace.engine.elements.user.Face;
 import ppspace.engine.elements.user.Node;
 import ppspace.geometry.Vector3d;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.deltathresold.PrecisionConfiguration;
+
 
 public class UserModelElements implements  IUserModelElements {
 

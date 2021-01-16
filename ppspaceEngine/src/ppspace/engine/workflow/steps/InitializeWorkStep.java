@@ -16,7 +16,7 @@ import ppspace.engine.workflow.WorkStepInvokeResult;
 import ppspace.geometry.Vector3d;
 import ppspace.geometry.algorithms.vectorsort.VectorSortAlgorithmFactory;
 import ppspace.geometry.algorithms.vectorsort.VectorSortAlgorithmResult;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.IPrecisionConfiguration;
 
 /**
  * Initialization WorkStep creates initial objects of a Partition Model.
@@ -33,7 +33,7 @@ public class InitializeWorkStep implements IWorkStep {
 	}
 
 	@Override
-	public WorkStepInvokeResult invoke(IUserModelElements userModelElements, PrecisionConfiguration precisionConfiguration) {
+	public WorkStepInvokeResult invoke(IUserModelElements userModelElements, IPrecisionConfiguration precisionConfiguration) {
 
 		// *** create user model elements ***
 
@@ -133,7 +133,7 @@ public class InitializeWorkStep implements IWorkStep {
 		return WorkStepInvokeResult.Success();
 	}
 	
-	private void createVoxel(String voxelName, Cell cell, PrecisionConfiguration precisionConfiguration) {
+	private void createVoxel(String voxelName, Cell cell, IPrecisionConfiguration precisionConfiguration) {
 		
 		Voxel vx = new Voxel(cell);
 		cell.setVoxel(vx);
@@ -154,7 +154,7 @@ public class InitializeWorkStep implements IWorkStep {
 		vx.setOuter(facets[0]);
 	}
 	
-	private Facet createFaceFacets(Face face, PrecisionConfiguration precisionConfiguration) {
+	private Facet createFaceFacets(Face face, IPrecisionConfiguration precisionConfiguration) {
 		
 		//if the face already has a facet assigned - that means that the work was done earlier
 		if (face.getFacet() != null)
@@ -274,7 +274,7 @@ public class InitializeWorkStep implements IWorkStep {
 		return a1;
 	}
 	
-	private void setupPolygonFromArrows(Arrow p, Arrow[] arrows, PrecisionConfiguration precisionConfiguration) {
+	private void setupPolygonFromArrows(Arrow p, Arrow[] arrows, IPrecisionConfiguration precisionConfiguration) {
 		
 		//the end of the current arrow should be the same as the origin of the next
 		
@@ -320,7 +320,7 @@ public class InitializeWorkStep implements IWorkStep {
 		return normalVector;
 	};
 	
-	private void updateDihedralReferences(Arrow arrow, Arrow newArrow, PrecisionConfiguration precisionConfiguration) {
+	private void updateDihedralReferences(Arrow arrow, Arrow newArrow, IPrecisionConfiguration precisionConfiguration) {
 		
 		//create an array of arrows of dihedral cycle and new arrow
 		ArrayList<Arrow> dihedralCycleArrows = new ArrayList<Arrow>();
@@ -371,6 +371,5 @@ public class InitializeWorkStep implements IWorkStep {
 				
 				return a.getOrigin().getNode().getVector();
 			}
-		
 	}
 }

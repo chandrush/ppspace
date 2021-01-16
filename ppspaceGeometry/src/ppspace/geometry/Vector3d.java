@@ -1,6 +1,7 @@
 package ppspace.geometry;
 
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.IPrecisionConfiguration;
+import ppspace.geometry.precision.deltathresold.PrecisionConfiguration;
 
 public class Vector3d  {
 
@@ -32,11 +33,12 @@ public class Vector3d  {
 		return this.z;
 	}
 
-	public boolean equal(Vector3d other, PrecisionConfiguration precisionConfiguration)
+	public boolean equal(Vector3d other, IPrecisionConfiguration precisionConfiguration)
 	{
-		return precisionConfiguration.equal(this.x, other.getX()) && 
-				precisionConfiguration.equal(this.y, other.getY()) && 
-				precisionConfiguration.equal(this.z, other.getZ());
+		PrecisionConfiguration pc = (PrecisionConfiguration)precisionConfiguration;
+		return pc.equal(this.x, other.getX()) && 
+				pc.equal(this.y, other.getY()) && 
+				pc.equal(this.z, other.getZ());
 	}
 
 	public final Vector3d crossProduct(Vector3d v) {

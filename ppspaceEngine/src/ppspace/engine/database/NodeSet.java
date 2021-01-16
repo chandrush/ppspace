@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import ppspace.engine.elements.user.Node;
 import ppspace.geometry.Vector3d;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.deltathresold.PrecisionConfiguration;
 
 /**
  * A set of Nodes in the User model with access by coordinates and by name.

@@ -13,7 +13,7 @@ import ppspace.engine.workflow.SplitWorkStepBase;
 import ppspace.engine.workflow.WorkStepInvokeResult;
 import ppspace.engine.workflow.commands.AddNodeWorkStepCommand;
 import ppspace.geometry.Vector3d;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.IPrecisionConfiguration;
 
 /**
  * Split edge work step splits one edge by a node.
@@ -36,7 +36,7 @@ public class SplitEdgeWorkStep extends SplitWorkStepBase implements ISplitWorkSt
 	}
 	
 	@Override
-	public WorkStepInvokeResult invoke(IUserModelElements userModelElements, PrecisionConfiguration precisionConfiguration) {
+	public WorkStepInvokeResult invoke(IUserModelElements userModelElements, IPrecisionConfiguration precisionConfiguration) {
 		
 		// *** VALIDATION *** START ***
 		
