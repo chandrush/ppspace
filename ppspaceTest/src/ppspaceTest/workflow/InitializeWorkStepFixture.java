@@ -13,7 +13,7 @@ import ppspace.engine.elements.user.Node;
 import ppspace.engine.workflow.IWorkStep;
 import ppspace.engine.workflow.WorkStepInvokeResult;
 import ppspace.engine.workflow.steps.InitializeWorkStep;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.deltathresold.PrecisionConfiguration;
 
 class InitializeWorkStepFixture {
 

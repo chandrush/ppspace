@@ -1,7 +1,7 @@
 package ppspace.geometry.algorithms.nodeToEdgeLocation;
 
 import ppspace.geometry.algorithms.AlgorithmBase;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.deltathresold.PrecisionConfiguration;
 
 public class NodeToEdgeLocationAlgorithm extends  AlgorithmBase<NodeToEdgeLocationAlgorithmResult> {
 

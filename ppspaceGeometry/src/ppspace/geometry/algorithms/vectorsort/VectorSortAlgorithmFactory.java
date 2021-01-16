@@ -1,7 +1,7 @@
 package ppspace.geometry.algorithms.vectorsort;
 
 import ppspace.geometry.Vector3d;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.deltathresold.PrecisionConfiguration;
 
 public class VectorSortAlgorithmFactory {
 

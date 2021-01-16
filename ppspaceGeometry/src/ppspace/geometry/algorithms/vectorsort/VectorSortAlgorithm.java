@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 import ppspace.geometry.Vector3d;
 import ppspace.geometry.algorithms.AlgorithmBase;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.deltathresold.PrecisionConfiguration;
 
 public class VectorSortAlgorithm extends AlgorithmBase<VectorSortAlgorithmResult> {
 

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import ppspace.geometry.Vector3d;
 import ppspace.geometry.algorithms.vectorsort.VectorSortAlgorithmFactory;
 import ppspace.geometry.algorithms.vectorsort.VectorSortAlgorithmResult;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.deltathresold.PrecisionConfiguration;
 
 
 class VectorSortAlgorithmFixture {

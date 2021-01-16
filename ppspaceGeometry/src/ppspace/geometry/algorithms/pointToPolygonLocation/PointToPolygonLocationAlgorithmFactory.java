@@ -2,7 +2,7 @@ package ppspace.geometry.algorithms.pointToPolygonLocation;
 
 import ppspace.geometry.Polygon3d;
 import ppspace.geometry.Vector3d;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.deltathresold.PrecisionConfiguration;
 
 public class PointToPolygonLocationAlgorithmFactory {
 

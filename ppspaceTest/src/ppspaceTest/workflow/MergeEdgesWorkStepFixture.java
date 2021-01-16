@@ -12,7 +12,7 @@ import ppspace.engine.workflow.WorkStepInvokeResult;
 import ppspace.engine.workflow.steps.InitializeWorkStep;
 import ppspace.engine.workflow.steps.MergeEdgesWorkStep;
 import ppspace.engine.workflow.steps.SplitEdgeWorkStep;
-import ppspace.geometry.precision.PrecisionConfiguration;
+import ppspace.geometry.precision.deltathresold.PrecisionConfiguration;
 
 class MergeEdgesWorkStepFixture {
 
