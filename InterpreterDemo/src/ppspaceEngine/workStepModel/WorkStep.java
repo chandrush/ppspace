@@ -1,8 +1,10 @@
 package ppspaceEngine.workStepModel;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import ppspaceEngine.PartitionModel;
 import ppspaceEngine.elements.user.Node;
 import ppspaceEngine.partitionModel.ErrorObject;
 import ppspaceEngine.partitionModel.IPartitionModelWorkStep;
@@ -17,7 +19,7 @@ public abstract class WorkStep {
 	/**
 	 * A reference to the partition model.
 	 */
-	protected IPartitionModelWorkStep partitionModel;
+	protected PartitionModel partitionModel;
 	
 	/**
 	 * Local to WorkStep link between the base names and the Java references of the nodes. 
@@ -27,18 +29,18 @@ public abstract class WorkStep {
 	/**
 	 * Collection of errors.
 	 */
-	protected ArrayList<ErrorObject> errors;
+	protected List<ErrorObject> errors;
 	
 	/**
 	 * Commands of work step.
 	 */
-	protected ArrayList<IWorkStepCommand> commands;
+	protected List<IWorkStepCommand> commands;
 	
 	/**
 	 * Constructor.
 	 * @param partitionModel A partition model to work on.
 	 */
-	protected WorkStep(IPartitionModelWorkStep partitionModel) {
+	protected WorkStep(PartitionModel partitionModel) {
 		
 		this.partitionModel = partitionModel;
 		
